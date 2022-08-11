@@ -16,7 +16,6 @@ const sendMessage = async (message, senderID) => {
             })
             // .then((message) => {
             //     console.log(message.sid)
-            //     return message.sid;
             // });
 
     } catch (error) {

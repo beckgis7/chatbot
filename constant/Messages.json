@@ -1,0 +1,15 @@
+{
+  "notAgent": "Hello, you are not permitted to use this channel. Thank you and keep safe.",
+  "invalidInput": "Hello, you've entered an invalid input. Dial *474# and try again. Thank you and keep safe.",
+  "invalidGhanaCard": "Invalid Pin Number. Please check and try again.",
+  "onSubmit": "Hello, your information has been successfully received and awaiting validation. Thank you and keep safe.",
+  "onCancel": "You've ended this session. Thank you and keep safe",
+  "invalidOption": "Sorry, you've entered an invalid option. Kindly check and try again. Thank you and keep safe",
+  "devOnly": "Dear customer, this application is in developer mode. Kindly check again later.",
+  "invalidMSISDN": "Invalid MSISDN. Please check and try again",
+  "invalidMSISDNLength": "Invalid MSISDN format. MSISDN must be on 10 digits. Please check and try again.",
+  "invalidDOBLength": "Invalid date of birth format. Please provide a birthdate in this format (DDMMYYYY). Thank you",
+  "invalidDOB": "Invalid date of birth. Please check and try again. Thank you",
+  "invalidICCIDLength": "Invalid ICCID length. Please check and try again. Thank you",
+  "unknownError": "Sorry, something went wrong when processing your request."
+}
