@@ -7,9 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-   <h1> Hello <%= text %> </h1> 
+   <h1> Hello <%= locals.data.title %> </h1>
+   <p> <%= locals.data.body %> </p>
+
    <form method="POST" action="sendChatBot">
-    <input type="hidden" name="">
+    <input type="text" name="" placeholder="Enter Number">
     
    </form>
 </body>
