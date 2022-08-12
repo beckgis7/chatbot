@@ -1,15 +1,20 @@
 require("dotenv").config();
 const express = require("express");
+const session = require('express-session');
+var cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConnect");
 let routeApi = require("./routes/api");
+
 
 // Connect to MongoDB Api
 connectDB();
 
 // Start App
 const app = express()
+app.use(session({ secret: 'chatbot' }));
+app.use(cookieParser());
 
 //App Body Configuration
 app.use(bodyParser.urlencoded({
@@ -32,7 +37,7 @@ mongoose.connection.once("open", () => {
         console.log("//       Connected to MongoDB        //")
         console.log(`//    listening on on port: ${port}     //`)
         console.log("///////////////////////////////////////")
-    }) // Port listening 3000
+    })
 })
 
  

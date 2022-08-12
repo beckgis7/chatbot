@@ -7,7 +7,7 @@ const connectDB = async () => {
             useNewUrlParser: true
         });
     } catch (err) {
-        console.error(`Database connection failed - $(err)`);
+        console.error(`Database connection failed\n${err}`);
     }
 }
 

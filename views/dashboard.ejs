@@ -7,11 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-   <h1> Hello <%= locals.data.title %> </h1>
-   <p> <%= locals.data.body %> </p>
+    <p>This is for test Api routes locally and its tempora to be replace with list of with paid Insurance Policies</p>
+   <h4> Level: <%= locals.data.level %> out <%= locals.length %> </h4>
+   <h1> <%= locals.data.body %> </h1>
 
-   <form method="POST" action="sendChatBot">
-    <input type="text" name="" placeholder="Enter Number">
+   <form method="POST" action="/whatsapp">
+    <div>
+        <input type="text" name="From" value="+233243112825">
+    </div>
+    <div>
+        <textarea type="text" cols="50" rows="7" name="Body" placeholder="Enter Text"></textarea>
+    </div>
+    <div>
+        <button type="submit">Send</button>
+    </div>
     
    </form>
 </body>

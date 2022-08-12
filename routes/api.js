@@ -4,7 +4,7 @@ const router = express.Router();
 let ChatBotController = require("../controller/ChatBotController");
 
 router.get('/', ChatBotController.index);
-router.post('/send', ChatBotController.send);
+router.post('/insert', ChatBotController.insert);
 router.get('/whatsapp', ChatBotController.whatsapp);
 router.post('/whatsapp', ChatBotController.whatsapp);
 
