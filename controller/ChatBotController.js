@@ -1,4 +1,6 @@
 const WA = require("../helpers/whatsapp-send-msg");
+const Question = require("../model/question");
+const Policy = require("../model/insurance-policy");
 var sess;
 
 // const quesSchema = require('../helpers/question-schema')
@@ -53,7 +55,7 @@ exports.insert = (req, res) => {
 }
 
 // Route for WhatsApp
-exports.whatsapp = (req, res) => {
+exports.whatsapp = async (req, res) => {
     res.cookie('lvl', "1")
     // let LEVEL = 1
     let LEVEL = req.cookies.lvl
@@ -65,29 +67,30 @@ exports.whatsapp = (req, res) => {
     let message = req.body.Body;
     let senderID = req.body.From;
     
-    const questions = [
-        { level: 1, body: "Hi, Welcome to the RP Phone Insure Bot. Let's start by giving me your Full Name", action: null },
-        { level: 2, body: "Please enter your email address?", action: null },
-        { level: 3, body: "Please enter the Brand Name of the Mobile Phone you want to ensure, eg: iphone 1234567890", action: null },
-        { level: 4, body: "Please enter the Model", action: null },
-        { level: 5, body: "Please enter the year of Manufacture?", action: null },
-        { level: 6, body: "Would you like to add a Aesthetics Insurance Cover?", action: null },
-        { level: 7, body: "If the user choose 1", action: ['yes', 'no'] },
-        { level: 8, body: "Please send pictures of the phone in its current state", action: null },
-        {
-            level: 9, body: [
-                'Based on the information you have given us your premium will be GHS 150',
-                'Please click on the link below to complete payment:',
-                'https://pay.paystack.com/c08acf26365e4c7991f69a2d191ed8ab/direct',
-            ], action: null
-        },
-        {
-            level: 6, body: [
-                `Hi ${name}, your payment has been processed successfully and is vaild from ${policy_start} to ${policy_end}.`,
-                `Your policy number is ${policy_number}.`,
-            ]
-        },
-    ]
+    // const questions = [
+    //     { level: 1, body: "Hi, Welcome to the RP Phone Insure Bot. Let's start by giving me your Full Name", action: null },
+    //     { level: 2, body: "Please enter your email address?", action: null },
+    //     { level: 3, body: "Please enter the Brand Name of the Mobile Phone you want to ensure, eg: iphone 1234567890", action: null },
+    //     { level: 4, body: "Please enter the Model", action: null },
+    //     { level: 5, body: "Please enter the year of Manufacture?", action: null },
+    //     { level: 6, body: "Would you like to add a Aesthetics Insurance Cover?", action: null },
+    //     { level: 7, body: "If the user choose 1", action: ['yes', 'no'] },
+    //     { level: 8, body: "Please send pictures of the phone in its current state", action: null },
+    //     {
+    //         level: 9, body: [
+    //             'Based on the information you have given us your premium will be GHS 150',
+    //             'Please click on the link below to complete payment:',
+    //             'https://pay.paystack.com/c08acf26365e4c7991f69a2d191ed8ab/direct',
+    //         ], action: null
+    //     },
+    //     {
+    //         level: 6, body: [
+    //             `Hi ${name}, your payment has been processed successfully and is vaild from ${policy_start} to ${policy_end}.`,
+    //             `Your policy number is ${policy_number}.`,
+    //         ]
+    //     },
+    // ]
+    const questions = Question.find({ question:data }).exec();
     // test contents
 
         
@@ -178,11 +181,24 @@ exports.whatsapp = (req, res) => {
                 break;
 
             case "6":
-                (req.cookies.msg==message) ? '':res.cookie('lvl', "7")
+                (req.cookies.msg == message) ? '' : res.cookie('lvl', "7")
                 res.cookie('msg', message)
-                res.render("dashboard", { sender: req.From,length:questions.length, data: questions[LEVEL] });
+                res.render("dashboard", { sender: req.From, length: questions.length, data: questions[LEVEL] });
                 break;
+            
         }
+        const result = new Policy({
+                    "firstname": req.cookies.firstname,
+                    "lastname": req.cookies.lastname,
+                    "email": req.cookies.email,
+                    "brand": req.cookies.brand,
+                    "phone_type": req.cookies.phone_type,
+                    "model": req.cookies.model,
+                    "manufactured_year": req.cookies.manufactured_year,
+                    "aesthetics_insurance": req.cookies.aesthetics_insurance,
+                    "picture": req.cookies.firstname,
+                });
+        result.save().then(() => { console.log("Successfully saved") });
         
 
     } else if (!message || message == "") {
